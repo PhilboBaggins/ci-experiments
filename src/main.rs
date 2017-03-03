@@ -3,6 +3,12 @@ fn main() {
 }
 
 #[test]
-fn it_works() {
+fn five_equals_five() {
+    assert!(5 == 5);
+}
 
+#[test]
+#[should_panic(expected = "assertion failed")]
+fn it_panics() {
+    assert!(false);
 }
