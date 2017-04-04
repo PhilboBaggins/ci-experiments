@@ -6,6 +6,3 @@ rust:
 matrix:
   allow_failures:
     - rust: nightly
-  include:
-    - os: linux
-    - os: osx
