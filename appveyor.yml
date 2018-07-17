@@ -1,19 +1,26 @@
 build: off
 
-image:
-    - Visual Studio 2015
-    - Ubuntu
-
 environment:
-  APPVEYOR_YML_DISABLE_PS_LINUX: true
   matrix:
-  - TARGET: i686-pc-windows-gnu
-  - TARGET: i686-pc-windows-msvc
-  - TARGET: x86_64-pc-windows-gnu
-  - TARGET: x86_64-pc-windows-msvc
+    - image: Ubuntu
+      TARGET: x86_64-unknown-linux-gnu
+    - image: Ubuntu
+      TARGET: x86_64-unknown-linux-musl
+    - image: Ubuntu
+      TARGET: i686-unknown-linux-gnu
+    - image: Ubuntu
+      TARGET: i686-unknown-linux-musl
+    - image: Visual Studio 2015
+      TARGET: i686-pc-windows-gnu
+    - image: Visual Studio 2015
+      TARGET: i686-pc-windows-msvc
+    - image: Visual Studio 2015
+      TARGET: x86_64-pc-windows-gnu
+    - image: Visual Studio 2015
+      TARGET: x86_64-pc-windows-msvc
 
 install:
-  - ps: Start-FileDownload "https://static.rust-lang.org/dist/rust-nightly-${env:TARGET}.exe"
+  - cmd: appveyor DownloadFile https://static.rust-lang.org/dist/rust-nightly-%TARGET%.exe
   - cmd: rust-nightly-%TARGET%.exe /VERYSILENT /NORESTART /DIR="C:\Program Files (x86)\Rust"
   - cmd: SET PATH=%PATH%;C:\Program Files (x86)\Rust\bin
   - cmd: SET PATH=%PATH%;C:\MinGW\bin
